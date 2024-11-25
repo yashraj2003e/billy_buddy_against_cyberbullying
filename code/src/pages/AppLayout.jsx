@@ -3,9 +3,11 @@ import NavBar from "../components/NavBar";
 
 function AppLayout() {
   return (
-    <div className="">
+    <div className="h-[95vh] w-screen">
       <NavBar />
-      <Outlet />
+      <div className="mt-[5vh]">
+        <Outlet />
+      </div>
     </div>
   );
 }

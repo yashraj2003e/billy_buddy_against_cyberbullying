@@ -4,6 +4,7 @@ import AppLayout from "./pages/AppLayout.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import Auth from "./pages/Auth.jsx";
 import Home from "./pages/Home.jsx";
+import Community from "./pages/Community.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/community",
+        element: <Community />,
       },
     ],
   },
