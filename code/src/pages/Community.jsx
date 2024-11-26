@@ -1,22 +1,20 @@
+import { faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useScreenSize from "../hooks/useScreenSize";
-import {
-  faHandPaper,
-  faMessage,
-  faPaperPlane,
-} from "@fortawesome/free-regular-svg-icons";
-import {
-  faPaperclip,
-  faPlane,
-  faPlaneCircleCheck,
-  faRightLong,
-  faTruckPlane,
-} from "@fortawesome/free-solid-svg-icons";
-import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowRightArrowLeft";
-import { faRightLeft } from "@fortawesome/free-solid-svg-icons/faRightLeft";
+import { useState, useRef, useEffect } from "react";
 
 function Community() {
   const isMobile = useScreenSize();
+  const [message, setMessage] = useState("");
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [message]);
+
   return (
     <div className="p-5 flex flex-col sm:flex-row w-screen h-[95vh] space-x-0 sm:space-x-8 space-y-4 sm:space-y-0">
       {!isMobile && (
@@ -49,9 +47,15 @@ function Community() {
             <p>0</p>
           </div>
         </div>
-        <div className="bg-green-500 w-full flex items-center justify-between p-2 space-x-4">
-          <input className="w-full rounded-md text-black focus:outline-none" />
-          <button className="rounded-md">
+        <div className="bg-green-500 w-full flex items-center justify-between p-2 space-x-2">
+          <textarea
+            ref={textareaRef}
+            className="w-full px-2 rounded-md text-black focus:outline-none resize-none"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={1}
+          />
+          <button className="rounded-md self-end">
             <FontAwesomeIcon icon={faRightLong} className="text-white" />
           </button>
         </div>

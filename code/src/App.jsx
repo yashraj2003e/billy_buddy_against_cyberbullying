@@ -5,6 +5,7 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import Auth from "./pages/Auth.jsx";
 import Home from "./pages/Home.jsx";
 import Community from "./pages/Community.jsx";
+import DataContext from "./contexts/DataContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <Suspense fallback={<h1>Loading...</h1>}>
-      <RouterProvider router={router} />
+      <DataContext>
+        <RouterProvider router={router} />
+      </DataContext>
     </Suspense>
   );
 }
