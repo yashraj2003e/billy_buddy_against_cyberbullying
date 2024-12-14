@@ -1,30 +1,38 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useKey from "../hooks/useKey";
 import { useDataContext } from "../contexts/DataContext";
+import chatWithBilly from "../model/model";
 
 function Home() {
   const { data, setData } = useDataContext();
+  // const [text, setText] = useState("");
   const [userMessage, setUserMessage] = useState("");
   const send = useRef();
 
-  const text = "Hi! I am Billy, your buddy against CyberCrime";
-  let speed = 40;
+  // useEffect(() => {
+  //   if (text) console.log(text);
+  // }, [text]);
 
-  useEffect(() => {
-    const d = [...data];
-    let index = d[0].bot.length;
-    const interval = setInterval(() => {
-      if (index < text.length) {
-        d[0].bot = d[0].bot + text[index];
-        setData(d);
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, speed);
+  // let speed = 40;
+  // useEffect(() => {
+  //   if (text.length > 0) {
+  //     // console.log(text.length);
+  //     const d = [...data];
+  //     d[d.length - 1] = { bot: "" };
+  //     let index = d[d.length - 1].bot.length;
+  //     const interval = setInterval(() => {
+  //       if (index < text.length) {
+  //         d[d.length - 1].bot = d[d.length - 1].bot + text[index];
+  //         setData(d);
+  //         index++;
+  //       } else {
+  //         clearInterval(interval);
+  //       }
+  //     }, speed);
 
-    return () => clearInterval(interval);
-  }, [data, setData, speed]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [data, setData, speed, text]);
 
   useKey("Enter", function () {
     if (document.activeElement !== send.current) {
@@ -32,16 +40,42 @@ function Home() {
     }
   });
 
+  async function getResults() {
+    setData((data) => [...data, { user: userMessage }]);
+
+    const lastFiveItems = data.slice(-5); // Get the last 5 items from the array
+    let total = "";
+
+    for (let item of lastFiveItems) {
+      if (item.bot) {
+        total += "bot: ";
+        total += item.bot;
+        total += "\n";
+      } else if (item.user) {
+        total += "user: ";
+        total += item.user;
+        total += "\n";
+      }
+    }
+
+    total += userMessage;
+    console.log(total);
+    setUserMessage("");
+    const response = await chatWithBilly(total);
+    const parsedResponse = JSON.parse(response);
+    setData((data) => [...data, { bot: parsedResponse.response }]);
+    // setText(parsedResponse.response);
+  }
+
   const handleSubmit = () => {
     if (userMessage) {
-      setData((data) => [...data, { user: userMessage }]);
-      setUserMessage("");
+      getResults();
     }
   };
 
   return (
     <div className="relative w-screen flex justify-center items-center flex-col bg-white-300/50">
-      <div className="w-screen lg:max-w-[40vw] lg:w-[40vw] flex flex-col border-2 border-white rounded-md bg-white items-center pt-10">
+      <div className="w-screen lg:max-w-[40vw] lg:w-[40vw] flex flex-col border-2 border-white rounded-md bg-white items-center pt-10 mb-[20vh]">
         {data.map((msg, i) => {
           return (
             <div key={i} className={`${msg.bot ? "mr-auto" : "ml-auto"}`}>
