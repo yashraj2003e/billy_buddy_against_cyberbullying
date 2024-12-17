@@ -2,11 +2,11 @@ import { createContext, useContext, useState } from "react";
 
 const dataContext = createContext();
 
-export default function DataContext({ children }) {
+export default function DataContext({ children, id }) {
   const [data, setData] = useState([{ bot: "" }]);
 
   return (
-    <dataContext.Provider value={{ data, setData }}>
+    <dataContext.Provider value={{ data, setData, id }}>
       {children}
     </dataContext.Provider>
   );

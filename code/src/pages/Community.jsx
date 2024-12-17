@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useScreenSize from "../hooks/useScreenSize";
 import { useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
+import { useDataContext } from "../contexts/DataContext";
+import useKey from "../hooks/useKey";
 
 const options = {
   "force new connection": true,
@@ -19,9 +21,11 @@ function Community() {
   const [online, setOnline] = useState(0);
   const socketRef = useRef(null);
   // changes everytime due to re-render !!!
-  const id = crypto.randomUUID();
+  const { id } = useDataContext();
   const [messages, setMessages] = useState([]);
-
+  console.log(id);
+  const send = useRef(null);
+  console.log(messages);
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -29,8 +33,16 @@ function Community() {
     }
   }, [message]);
 
+  useKey("Enter", function () {
+    if (document.activeElement !== send.current) {
+      handleSend();
+    }
+  });
+
   useEffect(() => {
-    socketRef.current = io("http://localhost:3000", options);
+    if (!socketRef.current) {
+      socketRef.current = io("http://localhost:3000", options);
+    }
     socketRef.current.on("setUsers", (users, msg) => {
       setOnline(users);
       setMessages(msg);
@@ -38,6 +50,13 @@ function Community() {
     socketRef.current.on("setMessage", (msg) => {
       setMessages(msg);
     });
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
   }, []);
 
   const handleSend = () => {
@@ -46,7 +65,10 @@ function Community() {
         id: id,
         message: message,
         date: new Date().toLocaleDateString(),
-        time: new Date().toLocaleTimeString(),
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       };
       socketRef.current.emit("updateMessage", data);
       setMessage("");
@@ -89,12 +111,12 @@ function Community() {
           {messages?.map((message, idx) => (
             <p
               key={idx}
-              className={`${message.id === id ? "self-end" : ""} ${console.log(
-                message.id,
-                id
-              )}p-2 m-2 bg-orange-200 rounded-md w-fit`}
+              className={`${
+                message.id === id ? "self-end" : ""
+              } p-2 m-2 bg-orange-200 rounded-md w-fit flex flex-col`}
             >
-              {message.message}
+              <p>{message.message}</p>
+              <p className="text-xs">{message.time}</p>
             </p>
           ))}
         </div>
@@ -106,7 +128,11 @@ function Community() {
             onChange={(e) => setMessage(e.target.value)}
             rows={1}
           />
-          <button className="rounded-md self-end" onClick={handleSend}>
+          <button
+            className="rounded-md self-end"
+            onClick={handleSend}
+            ref={send}
+          >
             <FontAwesomeIcon icon={faRightLong} className="text-white" />
           </button>
         </div>

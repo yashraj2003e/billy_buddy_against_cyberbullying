@@ -18,10 +18,10 @@ io.on("connection", (socket) => {
   console.log(`${socket.id} joined the room !}`);
   users++;
   socket.emit("setUsers", users, messages);
-  socket.broadcast.emit("setUsers", users);
+  socket.broadcast.emit("setUsers", users, messages);
   socket.on("disconnecting", () => {
     users--;
-    socket.broadcast.emit("setUsers", users);
+    socket.broadcast.emit("setUsers", users, messages);
   });
   socket.on("updateMessage", (data) => {
     messages = [...messages, data];
