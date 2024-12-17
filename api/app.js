@@ -13,7 +13,7 @@ app.get("/", (req, res) => res.send("HELLO"));
 let users = 0;
 
 let messages = [];
-
+console.log(messages);
 io.on("connection", (socket) => {
   console.log(`${socket.id} joined the room !}`);
   users++;

@@ -1,0 +1,70 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2024-12-18 04:41:22
+count workspace : e:\cap
+total files : 44
+total code lines : 16263
+total comment lines : 8096
+total blank lines : 238
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |           .txt|              1|              1|              0| 0.0061|
+   |               |             20|              9|              4|   0.12|
+   |          .json|           7521|              0|             83|     46|
+   |            .js|            139|              9|             18|   0.85|
+   |            .md|              5|              2|              3|  0.031|
+   |          .html|             13|              0|              0|  0.080|
+   |           .jsx|            373|             35|             47|    2.3|
+   |           .css|              6|              0|              1|  0.037|
+   |           .pdf|           8184|           8040|             82|     50|
+   |           .svg|              1|              0|              0| 0.0061|
+   -------------------------------------------------------------------------
+.gitignore, code is 1, comment is 0, blank is 0.
+api\.gitignore, code is 1, comment is 0, blank is 0.
+api\app.js, code is 28, comment is 0, blank is 6.
+api\package-lock.json, code is 1051, comment is 0, blank is 0.
+api\package.json, code is 18, comment is 0, blank is 0.
+code\.env, code is 1, comment is 0, blank is 0.
+code\.gitignore, code is 17, comment is 9, blank is 4.
+code\eslint.config.js, code is 37, comment is 0, blank is 1.
+code\index.html, code is 13, comment is 0, blank is 0.
+code\package-lock.json, code is 6413, comment is 0, blank is 83.
+code\package.json, code is 39, comment is 0, blank is 0.
+code\postcss.config.js, code is 6, comment is 0, blank is 0.
+code\public\vite.svg, code is 1, comment is 0, blank is 0.
+code\README.md, code is 5, comment is 2, blank is 3.
+code\src\App.jsx, code is 6, comment is 9, blank is 2.
+code\src\components\NavBar.jsx, code is 19, comment is 0, blank is 2.
+code\src\contexts\DataContext.jsx, code is 37, comment is 0, blank is 6.
+code\src\firebase\firebase.js, code is 14, comment is 6, blank is 2.
+code\src\hooks\useKey.jsx, code is 13, comment is 0, blank is 4.
+code\src\hooks\useScreenSize.jsx, code is 13, comment is 0, blank is 6.
+code\src\index.css, code is 6, comment is 0, blank is 1.
+code\src\main.jsx, code is 4, comment is 0, blank is 1.
+code\src\model\model.js, code is 42, comment is 1, blank is 8.
+code\src\pages\AppLayout.jsx, code is 13, comment is 0, blank is 2.
+code\src\pages\Auth.jsx, code is 10, comment is 0, blank is 1.
+code\src\pages\Community.jsx, code is 135, comment is 1, blank is 8.
+code\src\pages\ErrorPage.jsx, code is 4, comment is 0, blank is 1.
+code\src\pages\Helper.jsx, code is 39, comment is 0, blank is 2.
+code\src\pages\Home.jsx, code is 80, comment is 25, blank is 12.
+code\tailwind.config.js, code is 7, comment is 1, blank is 0.
+code\vite.config.js, code is 5, comment is 1, blank is 1.
+review_0\PIP2001-REVIEW-0.pptx, it is a binary file.
+review_0\research_papers\12.pdf, it is a binary file.
+review_0\research_papers\e3sconf_icftest2024_01069.pdf, code is 1960, comment is 2568, blank is 14.
+review_1\research_papers\10.1504@IJAC.2018.097620.pdf, code is 705, comment is 1321, blank is 35.
+review_1\research_papers\12.pdf, it is a binary file.
+review_1\research_papers\7345-Article Text-10575-1-10-20200601.pdf, code is 1215, comment is 803, blank is 8.
+review_1\research_papers\e3sconf_icftest2024_01069.pdf, code is 1960, comment is 2568, blank is 14.
+review_1\research_papers\IJREAMV07I0577030.pdf, code is 999, comment is 777, blank is 6.
+review_1\research_papers\lu2020.pdf, it is a binary file.
+review_1\research_papers\pradheep2017.pdf, code is 517, comment is 1, blank is 4.
+review_1\research_papers\ssrn-3362158.pdf, code is 828, comment is 2, blank is 1.
+review_1\review_1.pptx, it is a binary file.
+system_design.txt, code is 1, comment is 1, blank is 0.
+===============================================================================

@@ -1,13 +1,22 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useKey from "../hooks/useKey";
 import { useDataContext } from "../contexts/DataContext";
 import chatWithBilly from "../model/model";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { data, setData } = useDataContext();
   // const [text, setText] = useState("");
   const [userMessage, setUserMessage] = useState("");
   const send = useRef();
+  const { userLoggedIn } = useDataContext();
+  const navigate = useNavigate();
+  console.log(userLoggedIn);
+  useEffect(() => {
+    if (!userLoggedIn) {
+      navigate("/");
+    }
+  }, [navigate, userLoggedIn]);
 
   // useEffect(() => {
   //   if (text) console.log(text);

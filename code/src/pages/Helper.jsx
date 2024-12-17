@@ -7,7 +7,7 @@ import Home from "./Home";
 import { Suspense } from "react";
 import DataContext from "../contexts/DataContext";
 
-function Helper({ id }) {
+function Helper() {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -31,7 +31,7 @@ function Helper({ id }) {
   ]);
   return (
     <Suspense fallback={<h1>Loading...</h1>}>
-      <DataContext id={id}>
+      <DataContext>
         <RouterProvider router={router} />
       </DataContext>
     </Suspense>

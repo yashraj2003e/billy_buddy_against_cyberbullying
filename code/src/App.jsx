@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Helper from "./pages/Helper";
+import { auth } from "./firebase/firebase";
 
 export default function App() {
-  // const [id, setId] = useState(() => {
-  //   // Check if an id already exists in localStorage
-  //   const savedId = localStorage.getItem("app-id");
-  //   return savedId || crypto.randomUUID();
-  // });
+  useEffect(() => {
+    return () => auth.signOut();
+  }, []);
 
-  // useEffect(() => {
-  //   // Save the id to localStorage
-  //   localStorage.setItem("app-id", id);
-  // }, [id]);
-  const id = crypto.randomUUID();
-  return <Helper id={id} />;
+  return <Helper />;
 }

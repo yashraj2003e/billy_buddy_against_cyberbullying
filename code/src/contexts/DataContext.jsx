@@ -1,12 +1,49 @@
-import { createContext, useContext, useState } from "react";
-
+import { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../firebase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 const dataContext = createContext();
 
-export default function DataContext({ children, id }) {
+export default function DataContext({ children }) {
   const [data, setData] = useState([{ bot: "" }]);
+  const [currentUser, setCurrentUser] = useState(() => {
+    return JSON.parse(localStorage.getItem("user")) || null;
+  });
+  const [userLoggedIn, setUserLoggedIn] = useState(() => {
+    if (localStorage.getItem("user")) {
+      return true;
+    }
+    return false;
+  });
+  const [loading, setIsLoading] = useState(true);
+  const [id, setId] = useState(null);
+  useEffect(() => {
+    if (currentUser) {
+      setId(currentUser.uid);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, initializeUser);
+    return unsubscribe;
+  }, []);
+
+  async function initializeUser(user) {
+    if (user) {
+      setCurrentUser({ ...user });
+      console.log(user);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      setUserLoggedIn(true);
+    } else {
+      setCurrentUser(null);
+      setUserLoggedIn(false);
+    }
+  }
 
   return (
-    <dataContext.Provider value={{ data, setData, id }}>
+    <dataContext.Provider
+      value={{ data, setData, id, currentUser, userLoggedIn, loading }}
+    >
       {children}
     </dataContext.Provider>
   );

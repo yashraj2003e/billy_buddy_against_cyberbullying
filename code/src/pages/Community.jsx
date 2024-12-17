@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 import { useDataContext } from "../contexts/DataContext";
 import useKey from "../hooks/useKey";
+import { useNavigate } from "react-router-dom";
 
 const options = {
   "force new connection": true,
@@ -23,9 +24,16 @@ function Community() {
   // changes everytime due to re-render !!!
   const { id } = useDataContext();
   const [messages, setMessages] = useState([]);
-  console.log(id);
+  // console.log(id);
   const send = useRef(null);
-  console.log(messages);
+  // console.log(messages);
+  const { userLoggedIn } = useDataContext();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userLoggedIn) {
+      navigate("/");
+    }
+  }, [navigate, userLoggedIn]);
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
