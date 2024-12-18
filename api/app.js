@@ -13,6 +13,7 @@ app.get("/", (req, res) => res.send("HELLO"));
 let users = 0;
 
 let messages = [];
+
 console.log(messages);
 io.on("connection", (socket) => {
   console.log(`${socket.id} joined the room !}`);
@@ -32,3 +33,10 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3000, () => console.log("Server is running on port 3000 !"));
+
+/*
+TODO:
+  1. Add Reverse-Geocoding !
+  2. Database operations !
+GOODNIGHT !!!
+*/

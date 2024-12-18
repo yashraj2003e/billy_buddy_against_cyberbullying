@@ -10,6 +10,14 @@ function Home() {
   const [userMessage, setUserMessage] = useState("");
   const send = useRef();
   const { userLoggedIn } = useDataContext();
+  const [location, setLocation] = useState(() => {
+    if (localStorage.getItem("location")) {
+      return JSON.parse(localStorage.getItem("location"));
+    } else {
+      return { latitude: null, longitude: null };
+    }
+  });
+  const [Error, setError] = useState(null);
   const navigate = useNavigate();
   console.log(userLoggedIn);
   useEffect(() => {
@@ -17,6 +25,54 @@ function Home() {
       navigate("/");
     }
   }, [navigate, userLoggedIn]);
+
+  useEffect(() => {
+    const showPosition = (position) => {
+      localStorage.setItem(
+        "location",
+        JSON.stringify({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        })
+      );
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+      setError(null);
+    };
+
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        setError("Geolocation is not supported by this browser.");
+      }
+    };
+    if (!location.latitude) {
+      getLocation();
+    }
+  }, [location, location.latitude]);
+
+  const showError = (error) => {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        setError("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        setError("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        setError("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        setError("An unknown error occurred.");
+        break;
+      default:
+        setError("An unknown error occurred.");
+        break;
+    }
+  };
 
   // useEffect(() => {
   //   if (text) console.log(text);
