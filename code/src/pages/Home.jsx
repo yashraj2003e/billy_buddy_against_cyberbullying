@@ -19,7 +19,7 @@ function Home() {
   });
   const [Error, setError] = useState(null);
   const navigate = useNavigate();
-  console.log(userLoggedIn);
+  // console.log(userLoggedIn);
   useEffect(() => {
     if (!userLoggedIn) {
       navigate("/");
@@ -27,14 +27,18 @@ function Home() {
   }, [navigate, userLoggedIn]);
 
   useEffect(() => {
-    const showPosition = (position) => {
-      localStorage.setItem(
-        "location",
-        JSON.stringify({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        })
+    async function getLocationName(lat, lng) {
+      const api_key = import.meta.env.VITE_POSITIONSTACK_API_KEY;
+      const response = await fetch(
+        `https://api.positionstack.com/v1/reverse?access_key=${api_key}&query=${lat},${lng}`
       );
+      const result = await response.json();
+      if (result.data[0].county) {
+        localStorage.setItem("locationName", result.data[0].county);
+      }
+    }
+    const showPosition = (position) => {
+      getLocationName(position.coords.latitude, position.coords.longitude);
       setLocation({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
@@ -53,6 +57,15 @@ function Home() {
       getLocation();
     }
   }, [location, location.latitude]);
+
+  // useEffect(() => {
+  //   if (location.latitude) {
+  //     if (!localStorage.getItem("location")) {
+  //       // localStorage.setItem
+  //       getLocationName();
+  //     }
+  //   }
+  // }, [location.latitude, location.longitude]);
 
   const showError = (error) => {
     switch (error.code) {
@@ -124,7 +137,7 @@ function Home() {
     }
 
     total += userMessage;
-    console.log(total);
+    // console.log(total);
     setUserMessage("");
     const response = await chatWithBilly(total);
     const parsedResponse = JSON.parse(response);

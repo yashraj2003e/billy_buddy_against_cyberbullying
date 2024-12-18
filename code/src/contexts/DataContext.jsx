@@ -30,7 +30,7 @@ export default function DataContext({ children }) {
   async function initializeUser(user) {
     if (user) {
       setCurrentUser({ ...user });
-      console.log(user);
+      // console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
 
       setUserLoggedIn(true);
