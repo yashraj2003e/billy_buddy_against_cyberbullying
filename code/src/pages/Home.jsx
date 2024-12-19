@@ -22,7 +22,7 @@ function Home() {
   // console.log(userLoggedIn);
   useEffect(() => {
     if (!userLoggedIn) {
-      navigate("/");
+      navigate(-1);
     }
   }, [navigate, userLoggedIn]);
 

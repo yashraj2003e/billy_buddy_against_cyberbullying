@@ -31,6 +31,16 @@ export default function DataContext({ children }) {
     if (user) {
       setCurrentUser({ ...user });
       // console.log(user);
+      await fetch("http://localhost:3000/createUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: user.uid,
+        }),
+      });
+
       localStorage.setItem("user", JSON.stringify(user));
 
       setUserLoggedIn(true);

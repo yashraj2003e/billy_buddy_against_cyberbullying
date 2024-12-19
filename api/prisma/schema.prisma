@@ -21,7 +21,7 @@ model User {
 
 model Chat {
    chatId String @id
-   id String
+   id String 
    message String
    date String
    time String
