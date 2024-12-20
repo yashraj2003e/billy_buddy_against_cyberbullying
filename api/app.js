@@ -26,6 +26,13 @@ async function saveChat(currentChat) {
   });
 }
 
+async function getChats() {
+  const response = await Prisma.chat.findMany();
+  messages = response;
+}
+
+getChats();
+
 console.log(messages);
 io.on("connection", (socket) => {
   console.log(`${socket.id} joined the room !}`);

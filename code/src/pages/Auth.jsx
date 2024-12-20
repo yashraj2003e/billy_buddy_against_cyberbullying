@@ -7,9 +7,7 @@ export default function Auth() {
 
   const handleSignIn = async () => {
     if (!userLoggedIn) {
-      await doSignInWithGoogle().then(async () => {
-        navigate("home");
-      });
+      await doSignInWithGoogle().then(() => navigate("home"));
     }
   };
 

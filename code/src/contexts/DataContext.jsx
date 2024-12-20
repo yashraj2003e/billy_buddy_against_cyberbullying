@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 const dataContext = createContext();
 
 export default function DataContext({ children }) {
-  const [data, setData] = useState([{ bot: "" }]);
+  const [data, setData] = useState([]);
   const [currentUser, setCurrentUser] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || null;
   });
@@ -31,6 +31,7 @@ export default function DataContext({ children }) {
     if (user) {
       setCurrentUser({ ...user });
       // console.log(user);
+      setUserLoggedIn(true);
       await fetch("http://localhost:3000/createUser", {
         method: "POST",
         headers: {
@@ -40,10 +41,7 @@ export default function DataContext({ children }) {
           id: user.uid,
         }),
       });
-
       localStorage.setItem("user", JSON.stringify(user));
-
-      setUserLoggedIn(true);
     } else {
       setCurrentUser(null);
       setUserLoggedIn(false);

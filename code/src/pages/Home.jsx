@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { data, setData } = useDataContext();
+  const [text, setText] = useState("");
   // const [text, setText] = useState("");
   const [userMessage, setUserMessage] = useState("");
   const send = useRef();
@@ -91,26 +92,34 @@ function Home() {
   //   if (text) console.log(text);
   // }, [text]);
 
-  // let speed = 40;
-  // useEffect(() => {
-  //   if (text.length > 0) {
-  //     // console.log(text.length);
-  //     const d = [...data];
-  //     d[d.length - 1] = { bot: "" };
-  //     let index = d[d.length - 1].bot.length;
-  //     const interval = setInterval(() => {
-  //       if (index < text.length) {
-  //         d[d.length - 1].bot = d[d.length - 1].bot + text[index];
-  //         setData(d);
-  //         index++;
-  //       } else {
-  //         clearInterval(interval);
-  //       }
-  //     }, speed);
+  useEffect(() => {
+    let speed = 20;
+    if (text.length > 0) {
+      // console.log(text.length);
+      const d = [...data];
+      console.log(d);
+      // if(d.push({ bot: "" });
+      if (d.length === 1 || d.at(-1).bot === undefined) {
+        d.push({ bot: "" });
+      }
 
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [data, setData, speed, text]);
+      let index = d[d.length - 1].bot.length;
+      console.log(index, text.length);
+      const interval = setInterval(() => {
+        if (index < text.length) {
+          d[d.length - 1].bot += text[index];
+          setData(d);
+          console.log(text[index]);
+          index++;
+        } else {
+          clearInterval(interval);
+          setText("");
+        }
+      }, speed);
+
+      return () => clearInterval(interval);
+    }
+  }, [data, setData, text]);
 
   useKey("Enter", function () {
     if (document.activeElement !== send.current) {
@@ -141,8 +150,18 @@ function Home() {
     setUserMessage("");
     const response = await chatWithBilly(total);
     const parsedResponse = JSON.parse(response);
-    setData((data) => [...data, { bot: parsedResponse.response }]);
-    // setText(parsedResponse.response);
+    // setData((data) => [...data, { bot: parsedResponse.response }]);
+    // setData((data) => [...data, { bot: "Hello Brother" }]);
+    // const sentences = [
+    //   "The stars twinkled softly in the night, whispering secrets to the moon.\nA gentle breeze carried the scent of jasmine through the quiet village.",
+    //   "She danced barefoot in the rain, her laughter echoing in the empty streets.\nThe storm couldn't drown her joy, but only amplify its rhythm.",
+    //   "A curious cat peered through the window, its eyes glowing like lanterns.\nInside, the fire crackled, warming stories long forgotten.",
+    //   "The waves kissed the shore with a soothing melody, retreating to the deep.\nFootprints in the sand marked the journey of a dreamer.",
+    //   "He opened the old book, its pages breathing the scent of time.\nEach word felt alive, weaving tales of worlds unknown.",
+    // ];
+    // const randomIndex = Math.floor(Math.random() * sentences.length);
+    // setText(sentences[randomIndex]);
+    setText(parsedResponse.response);
   }
 
   const handleSubmit = () => {
