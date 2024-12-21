@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const { data, setData } = useDataContext();
   const [text, setText] = useState("");
-  // const [text, setText] = useState("");
   const [userMessage, setUserMessage] = useState("");
   const send = useRef();
   const { userLoggedIn } = useDataContext();
@@ -20,7 +19,6 @@ function Home() {
   });
   const [Error, setError] = useState(null);
   const navigate = useNavigate();
-  // console.log(userLoggedIn);
   useEffect(() => {
     if (!userLoggedIn) {
       navigate(-1);
@@ -59,15 +57,6 @@ function Home() {
     }
   }, [location, location.latitude]);
 
-  // useEffect(() => {
-  //   if (location.latitude) {
-  //     if (!localStorage.getItem("location")) {
-  //       // localStorage.setItem
-  //       getLocationName();
-  //     }
-  //   }
-  // }, [location.latitude, location.longitude]);
-
   const showError = (error) => {
     switch (error.code) {
       case error.PERMISSION_DENIED:
@@ -88,17 +77,11 @@ function Home() {
     }
   };
 
-  // useEffect(() => {
-  //   if (text) console.log(text);
-  // }, [text]);
-
   useEffect(() => {
     let speed = 20;
     if (text.length > 0) {
-      // console.log(text.length);
       const d = [...data];
       console.log(d);
-      // if(d.push({ bot: "" });
       if (d.length === 1 || d.at(-1).bot === undefined) {
         d.push({ bot: "" });
       }
@@ -130,7 +113,7 @@ function Home() {
   async function getResults() {
     setData((data) => [...data, { user: userMessage }]);
 
-    const lastFiveItems = data.slice(-5); // Get the last 5 items from the array
+    const lastFiveItems = data.slice(-5);
     let total = "";
 
     for (let item of lastFiveItems) {
@@ -146,21 +129,10 @@ function Home() {
     }
 
     total += userMessage;
-    // console.log(total);
+
     setUserMessage("");
     const response = await chatWithBilly(total);
     const parsedResponse = JSON.parse(response);
-    // setData((data) => [...data, { bot: parsedResponse.response }]);
-    // setData((data) => [...data, { bot: "Hello Brother" }]);
-    // const sentences = [
-    //   "The stars twinkled softly in the night, whispering secrets to the moon.\nA gentle breeze carried the scent of jasmine through the quiet village.",
-    //   "She danced barefoot in the rain, her laughter echoing in the empty streets.\nThe storm couldn't drown her joy, but only amplify its rhythm.",
-    //   "A curious cat peered through the window, its eyes glowing like lanterns.\nInside, the fire crackled, warming stories long forgotten.",
-    //   "The waves kissed the shore with a soothing melody, retreating to the deep.\nFootprints in the sand marked the journey of a dreamer.",
-    //   "He opened the old book, its pages breathing the scent of time.\nEach word felt alive, weaving tales of worlds unknown.",
-    // ];
-    // const randomIndex = Math.floor(Math.random() * sentences.length);
-    // setText(sentences[randomIndex]);
     setText(parsedResponse.response);
   }
 
