@@ -1,10 +1,18 @@
 import { useEffect } from "react";
 import Helper from "./pages/Helper";
-import { auth } from "./firebase/firebase";
 
 export default function App() {
   useEffect(() => {
-    return () => auth.signOut();
+    const handleClearLocalStorage = () => {
+      localStorage.removeItem("user");
+      localStorage.removeItem("locationName");
+    };
+
+    window.addEventListener("beforeunload", handleClearLocalStorage);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleClearLocalStorage);
+    };
   }, []);
 
   return <Helper />;

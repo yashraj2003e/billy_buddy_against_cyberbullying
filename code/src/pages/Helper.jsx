@@ -6,6 +6,7 @@ import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import { Suspense } from "react";
 import DataContext from "../contexts/DataContext";
+import Evidence from "./Evidence";
 
 function Helper() {
   const router = createBrowserRouter([
@@ -25,6 +26,10 @@ function Helper() {
         {
           path: "/community",
           element: <Community />,
+        },
+        {
+          path: "/evidence",
+          element: <Evidence />,
         },
       ],
     },

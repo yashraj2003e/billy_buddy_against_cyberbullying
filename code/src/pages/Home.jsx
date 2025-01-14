@@ -10,6 +10,7 @@ function Home() {
   const [userMessage, setUserMessage] = useState("");
   const send = useRef();
   const { userLoggedIn } = useDataContext();
+
   const [location, setLocation] = useState(() => {
     if (localStorage.getItem("location")) {
       return JSON.parse(localStorage.getItem("location"));
@@ -17,6 +18,7 @@ function Home() {
       return { latitude: null, longitude: null };
     }
   });
+
   const [Error, setError] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {

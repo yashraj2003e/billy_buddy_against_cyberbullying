@@ -8,14 +8,17 @@ export default function DataContext({ children }) {
   const [currentUser, setCurrentUser] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || null;
   });
+
   const [userLoggedIn, setUserLoggedIn] = useState(() => {
     if (localStorage.getItem("user")) {
       return true;
     }
     return false;
   });
+
   const [loading, setIsLoading] = useState(true);
   const [id, setId] = useState(null);
+
   useEffect(() => {
     if (currentUser) {
       setId(currentUser.uid);
