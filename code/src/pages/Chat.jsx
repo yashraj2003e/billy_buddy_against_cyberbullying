@@ -9,11 +9,11 @@ function Chat() {
   const [text, setText] = useState("");
   const [userMessage, setUserMessage] = useState("");
   const send = useRef();
-  const { userLoggedIn } = useDataContext();
+  const { userLoggedIn, id } = useDataContext();
 
   const [location, setLocation] = useState(() => {
     if (localStorage.getItem("location")) {
-      return JSON.parse(localStorage.getItem("location"));
+      return JSON.parse(localStorage.getItem("geoLocation"));
     } else {
       return { latitude: null, longitude: null };
     }
@@ -28,6 +28,18 @@ function Chat() {
   }, [navigate, userLoggedIn]);
 
   useEffect(() => {
+    if (id != undefined) {
+      fetch("http://localhost:3000/createUser", {
+        method: "POST",
+        data: JSON.stringify(id),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+  }, [id]);
+
+  useEffect(() => {
     async function getLocationName(lat, lng) {
       const api_key = import.meta.env.VITE_POSITIONSTACK_API_KEY;
       const response = await fetch(
@@ -37,6 +49,7 @@ function Chat() {
       console.log(result);
       if (result.data[0]?.county) {
         localStorage.setItem("locationName", result.data[0].county);
+        localStorage.setItem("geoLocation", JSON.stringify({ lat, lng }));
       }
     }
     const showPosition = (position) => {

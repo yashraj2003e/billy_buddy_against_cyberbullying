@@ -31,7 +31,7 @@ function Community() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!userLoggedIn) {
-      navigate("/");
+      navigate("/auth");
     }
   }, [navigate, userLoggedIn]);
   useEffect(() => {

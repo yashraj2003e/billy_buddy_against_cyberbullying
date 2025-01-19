@@ -1,0 +1,510 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "d:\\capstone",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2025-01-19 23:36:27",
+            "filesum": 68,
+            "codesum": 55851,
+            "commentsum": 16545,
+            "blanksum": 523,
+            "statistics": {
+                ".pdf": {
+                    "code": 14074,
+                    "comment": 14099,
+                    "blank": 97
+                },
+                ".txt": {
+                    "code": 1,
+                    "comment": 1,
+                    "blank": 0
+                },
+                ".py": {
+                    "code": 34,
+                    "comment": 2,
+                    "blank": 17
+                },
+                ".ipynb": {
+                    "code": 3669,
+                    "comment": 0,
+                    "blank": 179
+                },
+                ".jsx": {
+                    "code": 1043,
+                    "comment": 17,
+                    "blank": 88
+                },
+                ".js": {
+                    "code": 217,
+                    "comment": 17,
+                    "blank": 38
+                },
+                ".json": {
+                    "code": 7624,
+                    "comment": 0,
+                    "blank": 84
+                },
+                ".prisma": {
+                    "code": 29,
+                    "comment": 4,
+                    "blank": 6
+                },
+                "": {
+                    "code": 40,
+                    "comment": 9,
+                    "blank": 6
+                },
+                ".css": {
+                    "code": 6,
+                    "comment": 0,
+                    "blank": 1
+                },
+                ".md": {
+                    "code": 5,
+                    "comment": 2,
+                    "blank": 3
+                },
+                ".tsx": {
+                    "code": 78,
+                    "comment": 0,
+                    "blank": 4
+                },
+                ".html": {
+                    "code": 13,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".svg": {
+                    "code": 1,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".csv": {
+                    "code": 29017,
+                    "comment": 2394,
+                    "blank": 0
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 2,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "api\\.env"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "api\\.gitignore"
+                },
+                {
+                    "blank": 13,
+                    "code": 43,
+                    "comment": 0,
+                    "filename": "api\\app.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "api\\lib\\prisma.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 34,
+                    "comment": 4,
+                    "filename": "api\\main.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 1141,
+                    "comment": 0,
+                    "filename": "api\\package-lock.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "api\\package.json"
+                },
+                {
+                    "blank": 6,
+                    "code": 29,
+                    "comment": 4,
+                    "filename": "api\\prisma\\schema.prisma"
+                },
+                {
+                    "blank": 0,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "code\\.env"
+                },
+                {
+                    "blank": 4,
+                    "code": 17,
+                    "comment": 9,
+                    "filename": "code\\.gitignore"
+                },
+                {
+                    "blank": 1,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "code\\eslint.config.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "code\\index.html"
+                },
+                {
+                    "blank": 83,
+                    "code": 6422,
+                    "comment": 0,
+                    "filename": "code\\package-lock.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "code\\package.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "code\\postcss.config.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "code\\public\\vite.svg"
+                },
+                {
+                    "blank": 3,
+                    "code": 5,
+                    "comment": 2,
+                    "filename": "code\\README.md"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "code\\src\\App.jsx"
+                },
+                {
+                    "blank": 2,
+                    "code": 37,
+                    "comment": 0,
+                    "filename": "code\\src\\components\\Hero.tsx"
+                },
+                {
+                    "blank": 5,
+                    "code": 137,
+                    "comment": 8,
+                    "filename": "code\\src\\components\\NavBar.jsx"
+                },
+                {
+                    "blank": 3,
+                    "code": 113,
+                    "comment": 0,
+                    "filename": "code\\src\\components\\Navbar1.jsx"
+                },
+                {
+                    "blank": 2,
+                    "code": 41,
+                    "comment": 0,
+                    "filename": "code\\src\\components\\Stats.tsx"
+                },
+                {
+                    "blank": 9,
+                    "code": 60,
+                    "comment": 1,
+                    "filename": "code\\src\\contexts\\DataContext.jsx"
+                },
+                {
+                    "blank": 4,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "code\\src\\firebase\\auth.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 19,
+                    "comment": 10,
+                    "filename": "code\\src\\firebase\\firebase.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "code\\src\\hooks\\useKey.jsx"
+                },
+                {
+                    "blank": 6,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "code\\src\\hooks\\useScreenSize.jsx"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "code\\src\\index.css"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "code\\src\\main.jsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 42,
+                    "comment": 1,
+                    "filename": "code\\src\\model\\model.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "code\\src\\pages\\AppLayout.jsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 137,
+                    "comment": 0,
+                    "filename": "code\\src\\pages\\Auth.jsx"
+                },
+                {
+                    "blank": 18,
+                    "code": 171,
+                    "comment": 1,
+                    "filename": "code\\src\\pages\\Chat.jsx"
+                },
+                {
+                    "blank": 8,
+                    "code": 141,
+                    "comment": 3,
+                    "filename": "code\\src\\pages\\Community.jsx"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "code\\src\\pages\\ErrorPage.jsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 66,
+                    "comment": 0,
+                    "filename": "code\\src\\pages\\Evidence.jsx"
+                },
+                {
+                    "blank": 3,
+                    "code": 44,
+                    "comment": 0,
+                    "filename": "code\\src\\pages\\Home.jsx"
+                },
+                {
+                    "blank": 2,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "code\\src\\pages\\Routes.jsx"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "code\\src\\pages\\WhatWeDo.jsx"
+                },
+                {
+                    "blank": 7,
+                    "code": 53,
+                    "comment": 4,
+                    "filename": "code\\src\\widgets\\UploadWidget.jsx"
+                },
+                {
+                    "blank": 0,
+                    "code": 7,
+                    "comment": 1,
+                    "filename": "code\\tailwind.config.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 1,
+                    "filename": "code\\vite.config.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 19165,
+                    "comment": 1617,
+                    "filename": "model_development\\cyberbullying_tweets.csv"
+                },
+                {
+                    "filename": "model_development\\downloaded_image.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "model_development\\image.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 117,
+                    "code": 2648,
+                    "comment": 0,
+                    "filename": "model_development\\notebook copy.ipynb"
+                },
+                {
+                    "blank": 62,
+                    "code": 1021,
+                    "comment": 0,
+                    "filename": "model_development\\notebook.ipynb"
+                },
+                {
+                    "blank": 7,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "model_development\\ocr.py"
+                },
+                {
+                    "blank": 0,
+                    "code": 9852,
+                    "comment": 777,
+                    "filename": "model_development\\sampled_dataset.csv"
+                },
+                {
+                    "blank": 5,
+                    "code": 13,
+                    "comment": 2,
+                    "filename": "model_development\\save_img.py"
+                },
+                {
+                    "blank": 5,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "model_development\\tempCodeRunnerFile.py"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "model_development\\test.py"
+                },
+                {
+                    "filename": "report.docx",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 15,
+                    "code": 5890,
+                    "comment": 6059,
+                    "filename": "report.pdf"
+                },
+                {
+                    "filename": "review_0\\PIP2001-REVIEW-0.pptx",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "review_0\\research_papers\\12.pdf",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 14,
+                    "code": 1960,
+                    "comment": 2568,
+                    "filename": "review_0\\research_papers\\e3sconf_icftest2024_01069.pdf"
+                },
+                {
+                    "blank": 35,
+                    "code": 705,
+                    "comment": 1321,
+                    "filename": "review_1\\research_papers\\10.1504@IJAC.2018.097620.pdf"
+                },
+                {
+                    "filename": "review_1\\research_papers\\12.pdf",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 8,
+                    "code": 1215,
+                    "comment": 803,
+                    "filename": "review_1\\research_papers\\7345-Article Text-10575-1-10-20200601.pdf"
+                },
+                {
+                    "blank": 14,
+                    "code": 1960,
+                    "comment": 2568,
+                    "filename": "review_1\\research_papers\\e3sconf_icftest2024_01069.pdf"
+                },
+                {
+                    "blank": 6,
+                    "code": 999,
+                    "comment": 777,
+                    "filename": "review_1\\research_papers\\IJREAMV07I0577030.pdf"
+                },
+                {
+                    "filename": "review_1\\research_papers\\lu2020.pdf",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 4,
+                    "code": 517,
+                    "comment": 1,
+                    "filename": "review_1\\research_papers\\pradheep2017.pdf"
+                },
+                {
+                    "blank": 1,
+                    "code": 828,
+                    "comment": 2,
+                    "filename": "review_1\\research_papers\\ssrn-3362158.pdf"
+                },
+                {
+                    "filename": "review_1\\review_1.pptx",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 1,
+                    "filename": "system_design.txt"
+                }
+            ]
+        }
+    ]
+}

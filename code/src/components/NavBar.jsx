@@ -11,7 +11,8 @@ const NavBar = () => {
 
   const handleClick = async () => {
     if (!userLoggedIn) {
-      await doSignInWithGoogle().then(() => navigate("chat"));
+      // await doSignInWithGoogle().then(() => navigate("chat"));
+      navigate("/auth");
     } else {
       await doSignOut();
     }
@@ -68,7 +69,14 @@ const NavBar = () => {
                   What we Do
                 </NavLink>
                 <NavLink
-                  to="/chat"
+                  // onClick={() => {
+                  //   if (userLoggedIn) {
+                  //     navigate("/chat");
+                  //   } else {
+                  //     navigate("/auth");
+                  //   }
+                  // }}
+                  to={userLoggedIn ? "/chat" : "/auth"}
                   className="bg-yellow-500 text-blue-900 px-4 py-2 rounded-md text-sm font-medium"
                 >
                   Chat with Billy
@@ -127,7 +135,7 @@ const NavBar = () => {
               What we Do
             </NavLink>
             <NavLink
-              to="/chat"
+              onClick={handleClick}
               className="bg-yellow-500 text-blue-900 block px-3 py-2 rounded-md text-base font-medium"
             >
               Chat with Billy

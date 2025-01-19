@@ -4,18 +4,41 @@ import { useDataContext } from "../contexts/DataContext";
 import { useNavigate } from "react-router-dom";
 
 function Evidence() {
+  const { id } = useDataContext();
   const { userLoggedIn } = useDataContext();
+  const [link, setLink] = useState("");
   const [images, setImages] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!userLoggedIn) {
-      navigate("/");
+      navigate("/auth");
     }
   }, [userLoggedIn, navigate]);
 
-  const handleClick = () => {
-    console.log(images);
+  const handleClick = async () => {
+    const location = localStorage.getItem("locationName") || "";
+    const { lat, lng } = JSON.parse(localStorage.getItem("geoLocation")) || {
+      lat: null,
+      lng: null,
+    };
+
+    const data = {
+      userId: id,
+      location,
+      lat,
+      lng,
+      link,
+      images,
+    };
+
+    await fetch("http://localhost:3000/addEvidence", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   return (
@@ -26,6 +49,7 @@ function Evidence() {
           <input
             className="border-2 border-black rounded-full px-4 py-1 focus:outline-none text-lg w-[50%]"
             placeholder="Post link"
+            onChange={(e) => setLink(e.target.value)}
           />
           <UploadWidget
             uwConfig={{

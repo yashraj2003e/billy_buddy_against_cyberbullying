@@ -6,6 +6,7 @@ export default function App() {
     const handleClearLocalStorage = () => {
       localStorage.removeItem("user");
       localStorage.removeItem("locationName");
+      localStorage.removeItem("geoLocation");
     };
 
     window.addEventListener("beforeunload", handleClearLocalStorage);

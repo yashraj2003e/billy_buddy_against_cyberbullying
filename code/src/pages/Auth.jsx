@@ -1,48 +1,151 @@
 import { useNavigate } from "react-router-dom";
+import {
+  doCreateUserWithEmailAndPassword,
+  doSignInWithEmailAndPassword,
+  doSignInWithGoogle,
+} from "../firebase/auth";
+import { useEffect, useState } from "react";
 import { useDataContext } from "../contexts/DataContext";
-import { doSignInWithGoogle } from "../firebase/auth.js";
-const Auth = () => {
-  const navigate = useNavigate();
-  const { userLoggedIn } = useDataContext();
 
-  const handleSignIn = async () => {
-    if (!userLoggedIn) {
-      await doSignInWithGoogle().then(() => navigate("chat"));
+function Auth() {
+  const navigate = useNavigate();
+  const [isSignUp, setIsSignUp] = useState(true);
+  const [authError, setAuthError] = useState("");
+  const { userLoggedIn } = useDataContext();
+  const [location, setLocation] = useState(() => {
+    if (localStorage.getItem("location")) {
+      return JSON.parse(localStorage.getItem("geoLocation"));
     } else {
-      navigate("/chat");
+      return { latitude: null, longitude: null };
+    }
+  });
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      navigate("/");
+    }
+  }, [userLoggedIn, navigate]);
+
+  useEffect(() => {
+    const showPosition = (position) => {
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+      localStorage.setItem(
+        "geoLocation",
+        JSON.stringify({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        })
+      );
+    };
+
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, () =>
+          console.log("Unable to fetch location !")
+        );
+      }
+    };
+    if (!location.latitude) {
+      getLocation();
+    }
+  }, [location]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get("email");
+    const pass = formData.get("password");
+    if (isSignUp) {
+      await doCreateUserWithEmailAndPassword(email, pass)
+        .then(() => navigate("/chat"))
+        .catch((e) => {
+          if (e.code === "auth/weak-password") {
+            setAuthError("Password should be at least 6 characters long!");
+          } else if (e.code === "auth/email-already-in-use") {
+            setAuthError("This email is already registered!");
+          } else if (e.code === "auth/invalid-email") {
+            setAuthError("The email address is not valid!");
+          } else {
+            setAuthError("An unexpected error occurred. Please try again.");
+          }
+        });
+    } else {
+      await doSignInWithEmailAndPassword(email, pass)
+        .then(() => navigate("/chat"))
+        .catch((e) => {
+          if (e.code === "auth/invalid-credential") {
+            setAuthError("Invalid Credentials !");
+          } else {
+            setAuthError("Some error Occurred !");
+          }
+        });
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    await doSignInWithGoogle()
+      .then(() => navigate("/chat"))
+      .catch((e) => console.log(e));
+  };
+
   return (
-    <div className="relative bg-blue-600 h-screen">
-      <div className="absolute inset-0">
-        <img
-          className="w-full h-full object-cover"
-          src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-          alt="Cyberbullying Prevention"
-        />
-        <div className="absolute inset-0 bg-blue-600 mix-blend-multiply opacity-80"></div>
-      </div>
-      <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Stop Cyberbullying
-        </h1>
-        <p className="mt-6 text-xl text-blue-100 max-w-3xl">
-          Together we can create a safer digital world. Get immediate support
-          through our AI companion Billy, connect with others, and learn how to
-          protect yourself online.
-        </p>
-        <div className="mt-10 flex space-x-4">
-          <button
-            onClick={handleSignIn}
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-blue-50"
-          >
-            Chat with Billy
+    <div className="flex justify-center items-center h-[90vh] text-xl">
+      <div className="border-2 rounded-lg border-gray-150 p-12 space-y-8">
+        <div className="flex justify-center border-2 rounded-lg bg-gray-100 p-2">
+          <img
+            src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+            className="h-[2rem]"
+          />
+          <button onClick={handleGoogleSignIn} className="text-xl">
+            Sign in with Google
           </button>
         </div>
+        <div className="flex justify-center space-x-8">
+          <button
+            onClick={() => setIsSignUp(true)}
+            disabled={isSignUp}
+            className={`${
+              isSignUp ? "bg-yellow-300" : ""
+            } py-2 px-4 rounded-md`}
+          >
+            Sign Up
+          </button>
+          <button
+            onClick={() => setIsSignUp(false)}
+            disabled={!isSignUp}
+            className={`${
+              !isSignUp ? "bg-yellow-300" : ""
+            } py-2 px-4 rounded-md`}
+          >
+            Sign In
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            className="p-2"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="p-2"
+            required
+          />
+          <button className="p-2 rounded-md bg-slate-200 hover:bg-slate-500 hover:text-white">
+            {isSignUp ? "Sign Up" : "Login"}
+          </button>
+        </form>
+        <p className="text-red-400 text-center min-h-[2rem]">{authError}</p>
       </div>
     </div>
   );
-};
+}
 
 export default Auth;

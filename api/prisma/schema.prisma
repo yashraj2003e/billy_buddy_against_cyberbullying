@@ -28,4 +28,12 @@ model Chat {
    user User @relation(fields: [id], references: [id])
 }
 
-
+model Evidence {
+  id String @id @default(uuid())
+  userId String
+  image String?
+  link String?
+  lat Float?
+  lng Float?
+  location String?
+}

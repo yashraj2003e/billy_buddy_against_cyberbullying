@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppLayout from "./AppLayout";
+import Home from "./Home";
 import Auth from "./Auth";
 import Community from "./Community";
 import ErrorPage from "./ErrorPage";
-import Home from "./Chat";
 import { Suspense } from "react";
 import DataContext from "../contexts/DataContext";
 import Evidence from "./Evidence";
@@ -19,11 +19,15 @@ function Helper() {
       children: [
         {
           index: true,
-          element: <Auth />,
+          element: <Home />,
         },
         {
           path: "/chat",
           element: <Chat />,
+        },
+        {
+          path: "/auth",
+          element: <Auth />,
         },
         {
           path: "/community",
