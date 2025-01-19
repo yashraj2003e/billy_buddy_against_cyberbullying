@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavBar.jsx";
 
 function AppLayout() {
   return (
-    <div className="h-[95vh] w-screen">
+    <div className="w-screen">
       <NavBar />
-      <div className="mt-[5vh]">
+      <div>
         <Outlet />
       </div>
     </div>

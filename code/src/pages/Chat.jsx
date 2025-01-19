@@ -4,7 +4,7 @@ import { useDataContext } from "../contexts/DataContext";
 import chatWithBilly from "../model/model";
 import { useNavigate } from "react-router-dom";
 
-function Home() {
+function Chat() {
   const { data, setData } = useDataContext();
   const [text, setText] = useState("");
   const [userMessage, setUserMessage] = useState("");
@@ -34,7 +34,8 @@ function Home() {
         `https://api.positionstack.com/v1/reverse?access_key=${api_key}&query=${lat},${lng}`
       );
       const result = await response.json();
-      if (result.data[0].county) {
+      console.log(result);
+      if (result.data[0]?.county) {
         localStorage.setItem("locationName", result.data[0].county);
       }
     }
@@ -184,4 +185,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Chat;

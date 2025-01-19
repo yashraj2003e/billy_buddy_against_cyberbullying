@@ -1,8 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadWidget from "../widgets/uploadwidget";
+import { useDataContext } from "../contexts/DataContext";
+import { useNavigate } from "react-router-dom";
 
 function Evidence() {
-  const [images, setImages] = useState([]);
+  const { userLoggedIn } = useDataContext();
+  const [images, setImages] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userLoggedIn) {
+      navigate("/");
+    }
+  }, [userLoggedIn, navigate]);
+
+  const handleClick = () => {
+    console.log(images);
+  };
+
   return (
     <div>
       <div className="flex justify-center text-2xl h-[90vh]">
@@ -14,14 +29,17 @@ function Evidence() {
           />
           <UploadWidget
             uwConfig={{
-              cloudName: "dm87sudhx",
-              uploadPreset: "estate",
-              multiple: true,
-              folder: "avatars",
+              cloudName: import.meta.env.VITE_CLOUD_NAME,
+              uploadPreset: import.meta.env.VITE_UPLOAD_PRESET,
+              multiple: false,
+              folder: import.meta.env.VITE_FOLDER_NAME,
             }}
             setState={setImages}
           />
-          <button className="py-[9px] px-[25px] bg-green-200 rounded-full">
+          <button
+            className="py-[9px] px-[25px] bg-green-200 rounded-full"
+            onClick={handleClick}
+          >
             Submit Evidence
           </button>
         </div>

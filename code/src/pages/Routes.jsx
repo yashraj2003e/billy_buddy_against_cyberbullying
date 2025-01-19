@@ -3,10 +3,12 @@ import AppLayout from "./AppLayout";
 import Auth from "./Auth";
 import Community from "./Community";
 import ErrorPage from "./ErrorPage";
-import Home from "./Home";
+import Home from "./Chat";
 import { Suspense } from "react";
 import DataContext from "../contexts/DataContext";
 import Evidence from "./Evidence";
+import WhatWeDo from "./WhatWeDo";
+import Chat from "./Chat";
 
 function Helper() {
   const router = createBrowserRouter([
@@ -20,12 +22,16 @@ function Helper() {
           element: <Auth />,
         },
         {
-          path: "/home",
-          element: <Home />,
+          path: "/chat",
+          element: <Chat />,
         },
         {
           path: "/community",
           element: <Community />,
+        },
+        {
+          path: "/what-we-do",
+          element: <WhatWeDo />,
         },
         {
           path: "/evidence",

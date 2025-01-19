@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Helper from "./pages/Helper";
+import Routes from "./pages/Routes";
 
 export default function App() {
   useEffect(() => {
@@ -15,5 +15,5 @@ export default function App() {
     };
   }, []);
 
-  return <Helper />;
+  return <Routes />;
 }

@@ -84,9 +84,9 @@ function Community() {
   };
 
   return (
-    <div className="p-5 flex flex-col sm:flex-row w-screen h-[95vh] space-x-0 sm:space-x-8 space-y-4 sm:space-y-0">
+    <div className="p-5 flex flex-col sm:flex-row w-screen min-h-[85vh] space-x-0 sm:space-x-8 space-y-4 sm:space-y-0">
       {!isMobile && (
-        <div className="w-full sm:w-3/4 h-full rounded-md ring-4 ring-offset-6 ring-[#b48e92]">
+        <div className="w-full sm:w-3/4 h-full rounded-md ring-4 ring-offset-6 ring-[#b48e92] min-h-[85vh]">
           <div className="min-h-[1.5rem] bg-teal-200/70">
             <h1 className="p-2 text-center">Upcoming Q&A Sessions</h1>
           </div>
