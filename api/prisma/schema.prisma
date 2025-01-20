@@ -36,4 +36,5 @@ model Evidence {
   lat Float?
   lng Float?
   location String?
+  detected Boolean?
 }

@@ -17,28 +17,30 @@ function Evidence() {
   }, [userLoggedIn, navigate]);
 
   const handleClick = async () => {
-    const location = localStorage.getItem("locationName") || "";
-    const { lat, lng } = JSON.parse(localStorage.getItem("geoLocation")) || {
-      lat: null,
-      lng: null,
-    };
+    if (link || images) {
+      const location = localStorage.getItem("locationName") || "";
+      const { lat, lng } = JSON.parse(localStorage.getItem("geoLocation")) || {
+        lat: null,
+        lng: null,
+      };
 
-    const data = {
-      userId: id,
-      location,
-      lat,
-      lng,
-      link,
-      images,
-    };
+      const data = {
+        userId: id,
+        location,
+        lat,
+        lng,
+        link,
+        image: images,
+      };
 
-    await fetch("http://localhost:3000/addEvidence", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+      await fetch("http://localhost:3000/addEvidence", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
   };
 
   return (
