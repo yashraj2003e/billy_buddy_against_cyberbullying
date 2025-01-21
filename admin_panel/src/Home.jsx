@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 const Home = ({ evidences }) => {
   return (
-    <Box sx={{ padding: 4 }}>
+    <Box sx={{ padding: 4 }} className="bg-teal-100 min-h-[100vh]">
       <div className="flex items-center mb-4">
         <h1 className="text-4xl">Admin Panel - Evidence List</h1>
         <Link
@@ -32,6 +32,7 @@ const Home = ({ evidences }) => {
                   className="h-[32rem]"
                   image={evidence.image}
                   alt={`Image for evidence ${evidence.id}`}
+                  style={{ objectFit: "contain" }}
                 />
               ) : (
                 <Box
@@ -62,9 +63,15 @@ const Home = ({ evidences }) => {
                     Coordinates: {evidence.lat}, {evidence.lng}
                   </Typography>
                 )}
-                {evidence.detection && (
-                  <Typography variant="body2" color="textSecondary">
-                    Cyberbullying Detected : {evidence.detection}
+                {evidence.detected && (
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    className="text-red-500"
+                  >
+                    <p className="text-white bg-yellow-500 w-fit p-2">
+                      Cyberbullying Detected
+                    </p>
                   </Typography>
                 )}
                 {evidence.link && (

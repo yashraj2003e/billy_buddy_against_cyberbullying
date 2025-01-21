@@ -42,10 +42,17 @@ function Chat() {
   useEffect(() => {
     async function getLocationName(lat, lng) {
       const api_key = import.meta.env.VITE_POSITIONSTACK_API_KEY;
-      const response = await fetch(
-        `https://api.positionstack.com/v1/reverse?access_key=${api_key}&query=${lat},${lng}`
-      );
-      const result = await response.json();
+      // const response = await fetch(
+      //   `https://api.positionstack.com/v1/reverse?access_key=${api_key}&query=${lat},${lng}`
+      // );
+      // const result = await response.json();
+      const result = {
+        data: [
+          {
+            county: "Bangalore",
+          },
+        ],
+      };
       console.log(result);
       if (result.data[0]?.county) {
         localStorage.setItem("locationName", result.data[0].county);
@@ -159,39 +166,43 @@ function Chat() {
   };
 
   return (
-    <div className="relative w-screen flex justify-center items-center flex-col bg-white-300/50">
-      <div className="w-screen lg:max-w-[40vw] lg:w-[40vw] flex flex-col border-2 border-white rounded-md bg-white items-center pt-10 mb-[20vh]">
-        {data.map((msg, i) => {
-          return (
-            <div key={i} className={`${msg.bot ? "mr-auto" : "ml-auto"}`}>
-              <h1
-                className={`border-2 rounded-md p-2 m-2 ${
-                  msg.bot
-                    ? "bg-slate-200/25 px-4"
-                    : msg.user
-                    ? "bg-gradient-to-r from-[#020024] via-[#4545b9] to-[#fa6c9b] text-white font-semibold py-2 px-4"
-                    : ""
-                }`}
+    <div className="bg-[#D1C4E9] min-h-[90vh]">
+      <div className="relative w-screen flex justify-center items-center flex-col bg-white-300/50 bg-[#D1C4E9]">
+        <div className="w-screen lg:max-w-[40vw] lg:w-[40vw] flex flex-col  rounded-md bg-[#D1C4E9] items-center pt-10 mb-[20vh]">
+          {data.map((msg, i) => {
+            return (
+              <div key={i} className={`${msg.bot ? "mr-auto" : "ml-auto"}`}>
+                <h1
+                  className={`border-2 rounded-md p-2 m-2 ${
+                    msg.bot
+                      ? "bg-white px-4"
+                      : msg.user
+                      ? "bg-gradient-to-r from-[#020024] via-[#4545b9] to-[#fa6c9b] text-white font-semibold py-2 px-4"
+                      : ""
+                  }`}
+                >
+                  {msg.bot ? msg.bot : msg.user}
+                </h1>
+              </div>
+            );
+          })}
+          <div className="w-full fixed bottom-0 z-[100] flex items-center justify-center bg-[#D1C4E9] p-4 shadow-lg">
+            <div className="flex items-center w-full max-w-3xl space-x-3">
+              <input
+                className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-700 text-lg shadow-sm"
+                onChange={(e) => setUserMessage(e.target.value)}
+                value={userMessage}
+                placeholder="Message Billy"
+              />
+              <button
+                ref={send}
+                className="bg-green-500 text-white text-lg font-medium px-6 py-2 rounded-full shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+                onClick={handleSubmit}
               >
-                {msg.bot ? msg.bot : msg.user}
-              </h1>
+                Send
+              </button>
             </div>
-          );
-        })}
-        <div className="w-full justify-center z-[100] fixed bottom-0 flex space-x-4 items-center bg-white p-10">
-          <input
-            className="border-2 border-black rounded-full px-4 py-1 focus:outline-none text-lg w-[90%]"
-            onChange={(e) => setUserMessage(e.target.value)}
-            value={userMessage}
-            placeholder="Message Billy"
-          />
-          <button
-            ref={send}
-            className="py-[9px] px-[25px] bg-green-200 rounded-full"
-            onClick={handleSubmit}
-          >
-            Send
-          </button>
+          </div>
         </div>
       </div>
     </div>

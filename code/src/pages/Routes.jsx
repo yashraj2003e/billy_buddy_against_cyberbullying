@@ -9,6 +9,7 @@ import DataContext from "../contexts/DataContext";
 import Evidence from "./Evidence";
 import WhatWeDo from "./WhatWeDo";
 import Chat from "./Chat";
+import RoomPage from "./Room";
 
 function Helper() {
   const router = createBrowserRouter([
@@ -24,6 +25,10 @@ function Helper() {
         {
           path: "/chat",
           element: <Chat />,
+        },
+        {
+          path: "/room/1",
+          element: <RoomPage />,
         },
         {
           path: "/auth",

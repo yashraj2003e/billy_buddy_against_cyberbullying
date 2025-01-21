@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 import { useDataContext } from "../contexts/DataContext";
 import useKey from "../hooks/useKey";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const options = {
   "force new connection": true,
@@ -98,9 +98,12 @@ function Community() {
               >
                 <div className="px-5 py-4 border-[1px] border-black w-full flex justify-between rounded-md items-center">
                   <h1>{((i + 1 + (i + 1)) % 30) + 1}/12/2024</h1>
-                  <button className="bg-[#b48e92] px-[25px] py-[9px] rounded-md text-white">
+                  <Link
+                    className="bg-[#b48e92] px-[25px] py-[9px] rounded-md text-white"
+                    to="/room/1"
+                  >
                     Remind Me
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
