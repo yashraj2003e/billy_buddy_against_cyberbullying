@@ -24,7 +24,14 @@ const Home = ({ evidences }) => {
       </div>
       <Grid container spacing={3} justifyContent="center">
         {evidences.map((evidence) => (
-          <Grid item xs={12} sm={6} md={4} key={evidence.id}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            key={evidence.id}
+            className="min-h-[45rem]"
+          >
             <Card sx={{ boxShadow: 3 }}>
               {evidence.image ? (
                 <CardMedia
@@ -72,6 +79,15 @@ const Home = ({ evidences }) => {
                     <p className="text-white bg-yellow-500 w-fit p-2">
                       Cyberbullying Detected
                     </p>
+                  </Typography>
+                )}
+                {evidence.link && (
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    className="text-red-500"
+                  >
+                    <p className="">Link : {evidence.link}</p>
                   </Typography>
                 )}
                 {evidence.link && (

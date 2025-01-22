@@ -8,8 +8,16 @@ export const useSocket = () => {
   return socket;
 };
 
+const options = {
+  "force new connection": true,
+  reconnectionAttempts: Infinity,
+  timeout: 10000,
+  transports: ["websocket"],
+  reconnection: true,
+};
+
 export const SocketProvider = (props) => {
-  const socket = useMemo(() => io("localhost:8000"), []);
+  const socket = useMemo(() => io("http://localhost:8000", options), []);
 
   return (
     <SocketContext.Provider value={socket}>

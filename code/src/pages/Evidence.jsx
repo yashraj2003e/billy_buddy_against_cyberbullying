@@ -44,14 +44,16 @@ function Evidence() {
   };
 
   return (
-    <div>
-      <div className="flex justify-center text-2xl h-[90vh]">
-        <h1 className="mt-[15%]">You can submit evidence here !</h1>
-        <div className="w-full justify-center z-[100] fixed bottom-0 flex space-x-4 items-center bg-white p-10">
+    <div className="flex justify-center items-center h-[90vh] text-xl">
+      <div className="border-2 rounded-lg border-gray-150 p-12 space-y-8">
+        <h1 className="text-center text-2xl">You can submit evidence here!</h1>
+        <div className="flex flex-col space-y-4">
           <input
-            className="border-2 border-black rounded-full px-4 py-1 focus:outline-none text-lg w-[50%]"
+            type="text"
             placeholder="Post link"
+            value={link}
             onChange={(e) => setLink(e.target.value)}
+            className="border-2 border-black rounded-full px-4 py-1 focus:outline-none text-lg w-full"
           />
           <UploadWidget
             uwConfig={{
@@ -63,8 +65,8 @@ function Evidence() {
             setState={setImages}
           />
           <button
-            className="py-[9px] px-[25px] bg-green-200 rounded-full"
             onClick={handleClick}
+            className="py-2 px-4 bg-green-200 rounded-full hover:bg-green-300"
           >
             Submit Evidence
           </button>

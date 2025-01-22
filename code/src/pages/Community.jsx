@@ -91,13 +91,13 @@ function Community() {
             <h1 className="p-2 text-center">Upcoming Q&A Sessions</h1>
           </div>
           <div className="">
-            {Array.from({ length: 1 }, (_, i) => (
+            {Array.from({ length: 5 }, (_, i) => (
               <div
                 className="w-full min-h-16 p-4 flex items-center justify-center"
                 key={i}
               >
                 <div className="px-5 py-4 border-[1px] border-black w-full flex justify-between rounded-md items-center">
-                  <h1>{((i + 1 + (i + 1)) % 30) + 1}/12/2024</h1>
+                  <h1>{((i + 1 + (i + 1)) % 30) + 1}/2/2025</h1>
                   <Link
                     className="bg-[#b48e92] px-[25px] py-[9px] rounded-md text-white"
                     to="/room/1"

@@ -1,11 +1,20 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
-import { useSocket } from "../contexts/SocketProvider";
+import { io } from "socket.io-client";
+import { useDataContext } from "../contexts/DataContext";
+
+const options = {
+  "force new connection": true,
+  reconnectionAttempts: Infinity,
+  timeout: 10000,
+  transports: ["websocket"],
+  reconnection: true,
+};
 
 const RoomPage = () => {
-  const socket = useSocket();
-  console.log(socket);
+  const socketRef = useRef(null);
+  const { id } = useDataContext();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
@@ -15,15 +24,26 @@ const RoomPage = () => {
     setRemoteSocketId(id);
   }, []);
 
+  const sendStreams = useCallback(() => {
+    if (myStream) {
+      for (const track of myStream.getTracks()) {
+        if (!peer.peer.getSenders().some((sender) => sender.track === track)) {
+          peer.peer.addTrack(track, myStream);
+        }
+      }
+    }
+  }, [myStream]);
+
   const handleCallUser = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: true,
       video: true,
     });
+    sendStreams();
     const offer = await peer.getOffer();
-    socket.emit("user:call", { to: remoteSocketId, offer });
+    socketRef.current.emit("user:call", { to: remoteSocketId, offer });
     setMyStream(stream);
-  }, [remoteSocketId, socket]);
+  }, [remoteSocketId, sendStreams]);
 
   const handleIncommingCall = useCallback(
     async ({ from, offer }) => {
@@ -34,17 +54,12 @@ const RoomPage = () => {
       });
       setMyStream(stream);
       console.log(`Incoming Call`, from, offer);
+      sendStreams();
       const ans = await peer.getAnswer(offer);
-      socket.emit("call:accepted", { to: from, ans });
+      socketRef.current.emit("call:accepted", { to: from, ans });
     },
-    [socket]
+    [sendStreams]
   );
-
-  const sendStreams = useCallback(() => {
-    for (const track of myStream.getTracks()) {
-      peer.peer.addTrack(track, myStream);
-    }
-  }, [myStream]);
 
   const handleCallAccepted = useCallback(
     ({ from, ans }) => {
@@ -56,9 +71,28 @@ const RoomPage = () => {
   );
 
   const handleNegoNeeded = useCallback(async () => {
+    if (peer.peer.signalingState !== "stable") return;
     const offer = await peer.getOffer();
-    socket.emit("peer:nego:needed", { offer, to: remoteSocketId });
-  }, [remoteSocketId, socket]);
+    socketRef.current.emit("peer:nego:needed", { offer, to: remoteSocketId });
+  }, [remoteSocketId]);
+
+  const handleNegoNeedIncomming = useCallback(async ({ from, offer }) => {
+    try {
+      if (peer.peer.signalingState !== "stable") return;
+      const ans = await peer.getAnswer(offer);
+      socketRef.current.emit("peer:nego:done", { to: from, ans });
+    } catch (error) {
+      console.error("Negotiation failed:", error);
+    }
+  }, []);
+
+  const handleNegoNeedFinal = useCallback(async ({ ans }) => {
+    try {
+      await peer.setLocalDescription(ans);
+    } catch (error) {
+      console.error("Failed to set remote description:", error);
+    }
+  }, []);
 
   useEffect(() => {
     peer.peer.addEventListener("negotiationneeded", handleNegoNeeded);
@@ -67,20 +101,8 @@ const RoomPage = () => {
     };
   }, [handleNegoNeeded]);
 
-  const handleNegoNeedIncomming = useCallback(
-    async ({ from, offer }) => {
-      const ans = await peer.getAnswer(offer);
-      socket.emit("peer:nego:done", { to: from, ans });
-    },
-    [socket]
-  );
-
-  const handleNegoNeedFinal = useCallback(async ({ ans }) => {
-    await peer.setLocalDescription(ans);
-  }, []);
-
   useEffect(() => {
-    peer.peer.addEventListener("track", async (ev) => {
+    peer.peer.addEventListener("track", (ev) => {
       const remoteStream = ev.streams;
       console.log("GOT TRACKS!!");
       setRemoteStream(remoteStream[0]);
@@ -88,31 +110,33 @@ const RoomPage = () => {
   }, []);
 
   useEffect(() => {
-    if (socket) {
-      console.log("YES");
-      socket.on("user:joined", handleUserJoined);
-      socket.on("incomming:call", handleIncommingCall);
-      socket.on("call:accepted", handleCallAccepted);
-      socket.on("peer:nego:needed", handleNegoNeedIncomming);
-      socket.on("peer:nego:final", handleNegoNeedFinal);
+    if (!socketRef.current) {
+      socketRef.current = io("http://localhost:8000", options);
     }
 
+    socketRef.current.emit("room:join", { email: id });
+    socketRef.current.on("user:joined", handleUserJoined);
+    socketRef.current.on("incomming:call", handleIncommingCall);
+    socketRef.current.on("call:accepted", handleCallAccepted);
+    socketRef.current.on("peer:nego:needed", handleNegoNeedIncomming);
+    socketRef.current.on("peer:nego:final", handleNegoNeedFinal);
+
     return () => {
-      if (socket) {
-        socket.off("user:joined", handleUserJoined);
-        socket.off("incomming:call", handleIncommingCall);
-        socket.off("call:accepted", handleCallAccepted);
-        socket.off("peer:nego:needed", handleNegoNeedIncomming);
-        socket.off("peer:nego:final", handleNegoNeedFinal);
+      if (socketRef.current) {
+        socketRef.current.off("user:joined", handleUserJoined);
+        socketRef.current.off("incomming:call", handleIncommingCall);
+        socketRef.current.off("call:accepted", handleCallAccepted);
+        socketRef.current.off("peer:nego:needed", handleNegoNeedIncomming);
+        socketRef.current.off("peer:nego:final", handleNegoNeedFinal);
       }
     };
   }, [
-    socket,
-    handleUserJoined,
-    handleIncommingCall,
+    id,
     handleCallAccepted,
-    handleNegoNeedIncomming,
+    handleIncommingCall,
     handleNegoNeedFinal,
+    handleNegoNeedIncomming,
+    handleUserJoined,
   ]);
 
   return (
